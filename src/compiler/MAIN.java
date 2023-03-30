@@ -3,7 +3,7 @@
 COURSE: COSC455-102
 Assignment: Program 1
 Name: Wilson, Grace
-Name: Anthony Sapporito
+Name: Sapporito, Anthony
  */
 package compiler;
 

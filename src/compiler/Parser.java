@@ -5,7 +5,7 @@ import compiler.Token;
 COURSE: COSC455-102
 Assignment: Program 1
 Name: Wilson, Grace
-Name: Anthony Sapporito
+Name: Sapporito, Anthony
 
  */
 import java.util.logging.Logger;
