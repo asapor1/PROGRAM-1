@@ -1,4 +1,5 @@
 package compiler;
+import compiler.Token;
 
 /*
 COURSE: COSC455-102
@@ -6,43 +7,9 @@ Assignment: Program 1
 Name: Wilson, Grace
 Name: Anthony Sapporito
 
-
  */
 import java.util.logging.Logger;
 
-/*
- * GRAMMAR FOR PROCESSING SIMPLE SENTENCES:
- *
- * <SENTENCE> ::= <NOUN_PHRASE> <VERB_PHRASE> <NOUN_PHRASE> <PREP_PHRASE> <SENTENCE_TAIL> $$
- * <SENTENCE_TAIL> ::= <CONJ> <SENTENCE> | <EOS>
- *
- * <NOUN_PHRASE> ::= <ART> <ADJ_LIST> <NOUN>
- * <ADJ_LIST> ::= <ADJECTIVE> <ADJ_TAIL> | <<EMPTY>>
- * <ADJ_TAIL> ::= <COMMA> <ADJECTIVE> <ADJ_TAIL> | <<EMPTY>>
- *
- * <VERB_PHRASE> ::= <ADVERB> <VERB> | <VERB>
- * <PREP_PHRASE> ::= <PREPOSITION> <NOUN_PHRASE> | <<EMPTY>>
- *
- * // *** Terminal Productions (Actual terminals omitted, but they are just the
- * valid words in the language). ***
- *
- * <COMMA> ::= ','
- * <EOS> ::= '.' | '!'
- *
- * <ADJECTIVE> ::= ...adjective list...
- * <ADVERB> ::= ...adverb list...
- * <ART> ::= ...article list...
- * <CONJ> ::= ...conjunction list...
- * <NOUN> ::= ...noun list...
- * <PREPOSITION> ::= ...preposition list...
- * <VERB> ::= ...verb list....
- */
-
-/**
- * The Syntax Analyzer.
- * <p>
- * ************** NOTE: REQUIRES JAVA 11 OR ABOVE! ******************
- */
 public class Parser {
 
     // The lexer which will provide the tokens
@@ -100,7 +67,7 @@ public class Parser {
     private void beginParsing(final TreeNode parentNode) throws ParseException {
         // Invoke the start rule.
         // TODO: Change if necessary!
-        PROGRAM(parentNode);
+        beginParsing(parentNode);
     }
     
     
