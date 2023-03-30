@@ -3,6 +3,7 @@
 COURSE: COSC455-102
 Assignment: Program 1
 Name: Wilson, Grace
+Name: Anthony Sapporito
  */
 package compiler;
 
@@ -154,7 +155,7 @@ class LexicalAnalyzer {
      * @return the Lexeme as an Optional string since an empty list has no tokens.
      */
     public String getCurrentLexeme() {
-        return (this.tokenList.isEmpty() || this.currentToken() == Token.$$) ? "EOF" : this.tokenList.peek().lexeme;
+        return (this.tokenList.isEmpty() || this.currentToken() == Token.EOF) ? "EOF" : this.tokenList.peek().lexeme;
     }
 
     /**
@@ -163,7 +164,7 @@ class LexicalAnalyzer {
      * @return the current token.
      */
     public Token currentToken() {
-        return this.tokenList.isEmpty() ? Token.$$ : this.tokenList.peek().token;
+        return this.tokenList.isEmpty() ? Token.EOF : this.tokenList.peek().token;
     }
 
     /**
