@@ -98,6 +98,7 @@ public class Parser {
         list.add(Token.READ);
         list.add(Token.IF);
         list.add(Token.WHILE);
+        list.add(Token.DO);
 
         if(list.contains(lexer.currentToken()))
         {
@@ -132,24 +133,26 @@ public class Parser {
             this.CONDITION(thisNode);
             this.MATCH(thisNode, Token.THEN);
             this.STMT_LIST(thisNode);
+
             if (lexer.currentToken() == Token.ELSE) {
             this.MATCH(thisNode, Token.ELSE);
             this.STMT_LIST(thisNode);
             }
+
             this.MATCH(thisNode, Token.FI);
         }
-        else if (lexer.currentToken() == Token.WHILE){
+        else if (lexer.currentToken() == Token.DO) { //Meaning this is do until
+            this.MATCH(thisNode, Token.DO); //It annoys me I don't know how to implement it not being in a while loop
+            this.STMT_LIST(thisNode);
+            this.MATCH(thisNode, Token.UNTIL);
+            this.CONDITION(thisNode);
+        }
+        else{ //Meaning this is a while loop
             this.MATCH(thisNode, Token.WHILE);
             this.CONDITION(thisNode);
             this.MATCH(thisNode, Token.DO);
             this.STMT_LIST(thisNode);
             this.MATCH(thisNode, Token.OD);
-        }
-        else if (lexer.currentToken() == Token.DO) { //Meaning this is do until
-            this.MATCH(thisNode, Token.DO);
-            this.STMT_LIST(thisNode);
-            this.MATCH(thisNode, Token.UNTIL);
-            this.CONDITION(thisNode);
         }
     }
 
