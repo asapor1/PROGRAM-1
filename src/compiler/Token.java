@@ -44,8 +44,8 @@ public enum Token {
     ELSE("else"),
     FI("fi"),
     WHILE("while"),
-    DO("do"),
     OD("od"),
+    DO("do"),
     UNTIL("until");
 
     /**
