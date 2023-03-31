@@ -2,20 +2,35 @@
 #### Un-comment only one example at a time.
 ######################################################################
 
+# sum := 0
 
-the dog loves the cat .
+# read count
 
-# the dog chases the slow , lazy cat up a tall tree and the rat loves the dog .
+# while count > 0 do
+#   read n
+#   sum := sum + n
+#   count := count - 1
+# od
 
-# a lazy dog quickly chases the fast , sneaky , furry cat up a tall tree and the rat loves the dog .
+# abs := n
 
-### Example with a syntax error.
-# the dog the cat .
+# if n < 0 then
+#   abs := 0 - abs
+#   do
+#       sum := sum * ( 1 + n ) / 100
+#   until sum >= 100
+# else
+#   if n > 0 then
+#       n := n + 1
+#   fi
+# fi
 
+#write sum + n
 
-## Multi-line example.
-# the lazy dog quickly 
-#         chases the fast , sneaky , furry cat 
-#             up a tall tree 
-#         and the 
-# rat loves the dog .
+###Example of until inside of while block AKA error!
+# while sum <= 0 do
+#   read n
+#   do
+#       sum := sum + 1
+#   until sum >= 2
+# od
