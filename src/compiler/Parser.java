@@ -26,6 +26,8 @@ public class Parser {
     // The actual "code generator"
     private final CodeGenerator codeGenerator;
 
+    boolean insideWhile = false;
+
     /**
      * This is the constructor for the Parser class which
      * accepts a LexicalAnalyzer and a CodeGenerator object as parameters.
@@ -74,16 +76,16 @@ public class Parser {
      */
     private void beginParsing(final TreeNode parentNode) throws ParseException {
         // Invoke the start rule.
-       this.SENTENCE(parentNode);
+       this.PROGRAM(parentNode);
     }
 
-    // <SENTENCE> ::= STMT_LIST $$
-    private void SENTENCE(final TreeNode parentNode) throws ParseException {
+    // <PROGRAM> ::= STMT_LIST $$
+    private void PROGRAM(final TreeNode parentNode) throws ParseException {
         final TreeNode thisNode = codeGenerator.addNonTerminalToTree(parentNode);
 
         this.STMT_LIST(thisNode);
 
-        // Test for the end of input.\
+        // Test for the end of input.
         if (lexer.currentToken() != Token.$$) {
             this.raiseException(Token.$$, thisNode);
         }
@@ -98,6 +100,7 @@ public class Parser {
         list.add(Token.READ);
         list.add(Token.IF);
         list.add(Token.WHILE);
+        list.add(Token.DO);
 
         if(list.contains(lexer.currentToken()))
         {
@@ -132,25 +135,35 @@ public class Parser {
             this.CONDITION(thisNode);
             this.MATCH(thisNode, Token.THEN);
             this.STMT_LIST(thisNode);
+
             if (lexer.currentToken() == Token.ELSE) {
             this.MATCH(thisNode, Token.ELSE);
             this.STMT_LIST(thisNode);
             }
+
             this.MATCH(thisNode, Token.FI);
         }
-        else if (lexer.currentToken() == Token.WHILE){
+        else if (lexer.currentToken() == Token.WHILE){ //Meaning this is a while loop
             this.MATCH(thisNode, Token.WHILE);
             this.CONDITION(thisNode);
             this.MATCH(thisNode, Token.DO);
+            insideWhile = true;
             this.STMT_LIST(thisNode);
             this.MATCH(thisNode, Token.OD);
+            insideWhile = false;
         }
         else if (lexer.currentToken() == Token.DO) { //Meaning this is do until
-            this.MATCH(thisNode, Token.DO);
-            this.STMT_LIST(thisNode);
-            this.MATCH(thisNode, Token.UNTIL);
-            this.CONDITION(thisNode);
+            if (insideWhile == false) {
+                this.MATCH(thisNode, Token.DO);
+                this.STMT_LIST(thisNode);
+                this.MATCH(thisNode, Token.UNTIL);
+                this.CONDITION(thisNode);
+            }
+            else {
+                throw new ParseException("Until is not valid inside of while-do-od.");
+            }
         }
+
     }
 
     // <EXPR> ::= <TERM> <TERM_TAIL>
