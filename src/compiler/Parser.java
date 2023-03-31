@@ -74,16 +74,16 @@ public class Parser {
      */
     private void beginParsing(final TreeNode parentNode) throws ParseException {
         // Invoke the start rule.
-       this.PROGRAM(parentNode);
+       this.SENTENCE(parentNode);
     }
 
-    // <PROGRAM> ::= STMT_LIST $$
-    private void PROGRAM(final TreeNode parentNode) throws ParseException {
+    // <SENTENCE> ::= STMT_LIST $$
+    private void SENTENCE(final TreeNode parentNode) throws ParseException {
         final TreeNode thisNode = codeGenerator.addNonTerminalToTree(parentNode);
 
         this.STMT_LIST(thisNode);
 
-        // Test for the end of input.
+        // Test for the end of input.\
         if (lexer.currentToken() != Token.$$) {
             this.raiseException(Token.$$, thisNode);
         }
