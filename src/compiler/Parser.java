@@ -26,8 +26,6 @@ public class Parser {
     // The actual "code generator"
     private final CodeGenerator codeGenerator;
 
-    boolean insideWhile = false;
-
     /**
      * This is the constructor for the Parser class which
      * accepts a LexicalAnalyzer and a CodeGenerator object as parameters.
@@ -147,20 +145,14 @@ public class Parser {
             this.MATCH(thisNode, Token.WHILE);
             this.CONDITION(thisNode);
             this.MATCH(thisNode, Token.DO);
-            insideWhile = true;
             this.STMT_LIST(thisNode);
             this.MATCH(thisNode, Token.OD);
-            insideWhile = false;
         }
-        else if (lexer.currentToken() == Token.DO) { //Meaning this is do until
-            if (insideWhile == false) {
+        else if (lexer.currentToken() == Token.DO) { //Meaning this is a do loop
                 this.MATCH(thisNode, Token.DO);
                 this.STMT_LIST(thisNode);
                 this.MATCH(thisNode, Token.UNTIL);
                 this.CONDITION(thisNode);
-            }
-            else {
-                throw new ParseException("Until is not valid inside of while-do-od.");
             }
         }
 
